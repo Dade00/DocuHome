@@ -8,4 +8,10 @@
     <string name="menu_gallery">I miei documenti</string>
     <string name="menu_slideshow">Inserisci nuovo</string>
     <string name="Benvenuto">Benvenuto!</string>
+    <string name="menu_mydoc">I miei documenti</string>
+    <string name="menu_insert">Inserisci nuovo documento</string>
+    <string name="DocType">Tipo di documento:</string>
+    <string name="Exp_date">Data di scadenza:</string>
+    <string name="Inserisci">Inserisci</string>
+    <string name="Reameber">Vuoi che te lo ricordo?</string>
 </resources>

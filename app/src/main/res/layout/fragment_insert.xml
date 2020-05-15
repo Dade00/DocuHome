@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.gallery.GalleryFragment">
+    tools:context=".ui.Insert.InsertFragment">
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:entries="@array/DocType"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,8 +77,8 @@
 
     <Switch
         android:id="@+id/switch1"
-        android:layout_width="41dp"
-        android:layout_height="36dp"
+        android:layout_width="53dp"
+        android:layout_height="34dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="30dp"
         android:showText="false"

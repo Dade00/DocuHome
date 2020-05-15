@@ -1,4 +1,4 @@
-package com.example.gestorehome.ui.slideshow;
+package com.example.gestorehome.ui.MyDoc;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,26 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.gestorehome.R;
 
-public class SlideshowFragment extends Fragment {
-
-    private SlideshowViewModel slideshowViewModel;
+public class MyDocFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         //slideshowViewModel =
          //       ViewModelProviders.of(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_mydoc, container, false);
-        final TextView textView = root.findViewById(R.id.text);
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
+        return inflater.inflate(R.layout.fragment_mydoc, container, false);
     }
 }

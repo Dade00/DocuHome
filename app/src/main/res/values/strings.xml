@@ -8,8 +8,8 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home" translatable="false">Home</string>
-    <string name="menu_gallery">My Documents</string>
-    <string name="menu_slideshow">Insert new</string>
+    <string name="menu_mydoc">My Documents</string>
+    <string name="menu_insert">Insert new</string>
 
     <string name="home_second" translatable="false">Home Second</string>
     <string name="Benvenuto">Welcome!</string>
@@ -19,4 +19,10 @@
     <string name="DocType">Document type</string>
     <string name="Exp_date">Expiration date</string>
     <string name="Reameber">Would you rember it?</string>
+
+    <string-array name="DocType">
+        <item>Test1</item>
+        <item>Test2</item>
+    </string-array>
+
 </resources>

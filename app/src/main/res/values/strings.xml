@@ -15,4 +15,8 @@
     <string name="Benvenuto">Welcome!</string>
     <string name="accountName" translatable="false">testName</string>
     <string name="todo" translatable="false">TODO</string>
+    <string name="Inserisci">Insert</string>
+    <string name="DocType">Document type</string>
+    <string name="Exp_date">Expiration date</string>
+    <string name="Reameber">Would you rember it?</string>
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DocuHome</string>
+    <string name="navigation_drawer_open">Apri il menu\'</string>
+    <string name="navigation_drawer_close">Chiudi il menu\'</string>
+    <string name="nav_header_desc">Pannello di navigazione</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="menu_gallery">I miei documenti</string>
+    <string name="menu_slideshow">Inserisci nuovo</string>
+    <string name="Benvenuto">Benvenuto!</string>
+</resources>

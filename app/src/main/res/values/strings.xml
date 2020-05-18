@@ -19,10 +19,13 @@
     <string name="DocType">Document type</string>
     <string name="Exp_date">Expiration date</string>
     <string name="Reameber">Would you rember it?</string>
+    <string name="advancedOpt">More Options</string>
+    <string name="inserimentoaccepted">Insert complete</string>
 
     <string-array name="DocType">
         <item>Test1</item>
         <item>Test2</item>
     </string-array>
+    <string name="menu_gallery">My doc</string>
 
 </resources>

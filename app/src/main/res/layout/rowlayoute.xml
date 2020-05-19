@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundlist">
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="150dp"
         android:layout_height="200dp"
-        android:layout_marginEnd="250dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginEnd="255dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:contentDescription="TODO"
+        android:fontFamily="@font/montserratregular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></ImageView>
@@ -22,9 +23,12 @@
         android:id="@+id/staticLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/montserratregular"
         android:text="@string/DocType"
-        android:textSize="10pt"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/icon"
@@ -34,8 +38,12 @@
         android:id="@+id/docTypeID"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/montserratregular"
         android:text="test"
-        android:textSize="15pt"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/icon"
         app:layout_constraintTop_toBottomOf="@+id/staticLabel" />
@@ -44,8 +52,12 @@
         android:id="@+id/staticExpDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/montserratregular"
         android:text="@string/Exp_date"
-        android:textSize="10pt"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/icon"
         app:layout_constraintTop_toBottomOf="@+id/docTypeID" />
@@ -54,10 +66,36 @@
         android:id="@+id/expDatevar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/montserratregular"
         android:text="00/00/0000"
-        android:textSize="15pt"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/icon"
         app:layout_constraintTop_toBottomOf="@+id/staticExpDate" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/titolare"
+        android:textSize="22sp"
+        app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintTop_toBottomOf="@+id/expDatevar" />
+
+    <TextView
+        android:id="@+id/dynamictitolare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="test"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

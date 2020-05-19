@@ -34,12 +34,15 @@ public class MyArrayAdapter extends ArrayAdapter<String> {
         View rowView = inflater.inflate(R.layout.rowlayoute, parent, false);
         TextView textView = (TextView) rowView.findViewById(R.id.docTypeID);
         TextView textView2 = (TextView) rowView.findViewById(R.id.expDatevar);
+        TextView textView3 = (TextView) rowView.findViewById(R.id.dynamictitolare);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         Resources res = context.getResources();
         String[] tempVal = res.getStringArray(R.array.DocType);
         textView.setText(tempVal[Integer.parseInt(values.get(1).get(position))]);
         textView2.setText(values.get(2).get(position));
+        textView3.setText(values.get(3).get(position));
         imageView.setImageBitmap(bitmaps.get(position));
+        imageView.setTag(position);
         return rowView;
     }
 }

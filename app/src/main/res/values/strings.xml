@@ -21,11 +21,22 @@
     <string name="Reameber">Would you rember it?</string>
     <string name="advancedOpt">More Options</string>
     <string name="inserimentoaccepted">Insert complete</string>
+    <string name="inserimentonoaccepted">Error: Insert almost author and doc image!</string>
+    <string name="rembembering">Remember it?</string>
+    <string name="titolare">Author</string>
 
-    <string-array name="DocType">
-        <item>Test1</item>
-        <item>Test2</item>
-    </string-array>
     <string name="menu_gallery">My doc</string>
+    <string name="title_activity_detail">detailActivity</string>
+    <string name="Pictures">"Document:"</string>
+    <string-array name="DocType">
+        <item>Bollettta</item>
+        <item>Affitto</item>
+        <item>Assicurazione</item>
+        <item>Bollo</item>
+        <item>Collaudo</item>
+        <item>Tassa casalinga</item>
+        <item>Vaccini animale</item>
+        <item>CIP veterinario</item>
+    </string-array>
 
 </resources>

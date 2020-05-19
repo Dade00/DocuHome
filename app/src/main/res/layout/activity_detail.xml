@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroundgpp"
+    android:fontFamily="@font/montserratregular"
+    tools:context=".detail">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserratregular"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/staticName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserratregular"
+            android:text="@string/titolare"
+            android:layout_marginBottom="4dp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/dynamicName"
+            android:layout_width="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserratregular"
+            android:layout_marginBottom="4dp"
+            android:text="TEST"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/StaticDocTypr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserratregular"
+            android:layout_marginBottom="4dp"
+            android:text="@string/DocType"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/dynamicDocType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/montserratregular"
+            android:text="TEST"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/staticExpDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/montserratregular"
+            android:text="@string/Exp_date"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/dynamicExpDate"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserratregular"
+            android:text="00/00/0000"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/dynamicRemberYesNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:button="@null"
+            android:layout_marginBottom="4dp"
+            android:drawableRight="@drawable/checknotify"
+            android:fontFamily="@font/montserratregular"
+            android:drawablePadding="20dp"
+            android:text="@string/rembembering" />
+
+        <TextView
+            android:id="@+id/statiPictures"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserratregular"
+            android:layout_marginBottom="8dp"
+            android:text="@string/Pictures"
+            android:textSize="20sp" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/viewDocsImage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/backButtone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="15dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_keyboard_backspace_black_24dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_delete_black_24dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ public class DBmyDoc {
         public static final String FIELD_EXPDATE="expDate";
         public static final String FIELD_DOCTYPE="docType";
         public static final String FIELD_REMEMBERIT="remember";
+        public static final String FIELD_TITOLARE="titolare";
         public static final String TBL_NAME="myDocs";
     }
     public  class picsTable{

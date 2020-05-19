@@ -15,4 +15,8 @@
     <string name="Inserisci">Inserisci</string>
     <string name="Reameber">Vuoi che te lo ricordo?</string>
     <string name="inserimentoaccepted">Inserimento completato con successo</string>
+    <string name="Pictures">Documento:</string>
+    <string name="rembembering">Te lo ricordo?</string>
+    <string name="titolare">Titolare:</string>
+    <string name="inserimentonoaccepted">Errore: inserisci almeno il titolare e lo scan del documento</string>
 </resources>

@@ -1,16 +1,20 @@
 package com.example.gestorehome.ui.Insert;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,6 +29,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -49,6 +56,7 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
         btDoc.setLayoutParams(layoutParamsPREVIEW);
         btDoc.setAdjustViewBounds(true);
         btDoc.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        btDoc.setBackgroundResource(R.color.trans);
         btDoc.setTag(imageButtonID);
         imageButtonID++;
         return btDoc;
@@ -116,10 +124,42 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
                 }
             }
         });
+
         viewCategoryNames = root.findViewById(R.id.viewImageButton);
         buildImageSection();
         FloatingActionButton ok = root.findViewById(R.id.okButton);
         ok.setOnClickListener(this);
+
+        //OpenDatePicker
+        final EditText eText=(EditText) root.findViewById(R.id.expdate);
+        eText.setInputType(InputType.TYPE_NULL);
+        eText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                final int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                DatePickerDialog picker = new DatePickerDialog(getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                Date data = new GregorianCalendar(year, monthOfYear, dayOfMonth).getTime();
+                                Date now = new Date();
+                                now.getTime();
+                                if(data.after(now))
+                                    eText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                                else
+                                {
+                                    Toast.makeText(getContext(), R.string.todo, Toast.LENGTH_SHORT);
+                                    return;
+                                }
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });
         return root;
     }
 
@@ -151,24 +191,32 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
     private void okButtonActions() {
         //Updating actions
         //To DataBase
+
             DBcontroller dBcontroller = new DBcontroller(getContext());
             dBcontroller.open();
             Spinner spinner = (Spinner) root.findViewById(R.id.spinner);
             int index = spinner.getSelectedItemPosition();
             TextView textView = (TextView) root.findViewById(R.id.expdate);
             CheckBox checkBox = (CheckBox) root.findViewById(R.id.rememberyesno);
-            dBcontroller.addDoc(index, textView.getText().toString(), checkBox.isChecked());
-            //Add picture
-            int lastInsert = dBcontroller.getLastID();
-            for (int i = 0; i < myDocsImage.size(); i++) {
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                myDocsImage.get(i).compress(Bitmap.CompressFormat.JPEG, 80, stream);
-                final byte[] byteArray = stream.toByteArray();
-                dBcontroller.addPic(byteArray, lastInsert);
+            TextView textView1 = (TextView) root.findViewById(R.id.titolaretext);
+            if(textView1.getText().length()>0 && myDocsImage.size() > 0)
+            {
+                dBcontroller.addDoc(index, textView.getText().toString(), checkBox.isChecked(), textView1.getText().toString());
+
+                //Add picture
+                int lastInsert = dBcontroller.getLastID();
+                for (int i = 0; i < myDocsImage.size(); i++) {
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    myDocsImage.get(i).compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    final byte[] byteArray = stream.toByteArray();
+                    dBcontroller.addPic(byteArray, lastInsert);
+                }
+                dBcontroller.close();
+                Toast.makeText(getContext(), R.string.inserimentoaccepted, Toast.LENGTH_SHORT).show();
+                clearFragment();
             }
-            dBcontroller.close();
-            Toast.makeText(getContext(), R.string.inserimentoaccepted, Toast.LENGTH_SHORT).show();
-            clearFragment();
+            else
+                Toast.makeText(getContext(), R.string.inserimentonoaccepted, Toast.LENGTH_SHORT).show();
     }
 
     public void clearFragment() {
@@ -185,6 +233,8 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
         s.setChecked(true);
         TextView t =  root.findViewById(R.id.expdate);
         t.setText("");
+        TextView te =  root.findViewById(R.id.titolaretext);
+        te.setText("");
         Spinner spinner = (Spinner) root.findViewById(R.id.spinner);
         spinner.setSelection(0);
     }

@@ -2,91 +2,139 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/testtt"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backgroundgpp"
+    android:fontFamily="@font/montserrat"
     tools:context=".ui.Insert.InsertFragment">
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:entries="@array/DocType"
-        android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <TextView
-        android:id="@+id/textView4"
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/DocType"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/Exp_date"
+        android:layout_height="0dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/expdate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
-        android:layout_marginTop="20dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserratregular"
+            android:text="@string/titolare"
+            android:textSize="20sp" />
 
-    <CheckBox
-        android:id="@+id/rememberyesno"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:buttonTint="#8BC34A"
-        android:checked="false"
-        android:text="@string/Reameber"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expdate" />
+        <EditText
+            android:id="@+id/titolaretext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:fontFamily="@font/montserratregular"
+            android:inputType="textPersonName"
+            android:text=""
+            android:textSize="20sp" />
 
-    <Switch
-        android:id="@+id/expdateyesno"
-        android:layout_width="53dp"
-        android:layout_height="34dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="30dp"
-        android:checked="true"
-        android:showText="false"
-        app:layout_constraintBaseline_toBaselineOf="@+id/expdate"
-        app:layout_constraintEnd_toStartOf="@+id/expdate"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:checked="true" />
+        <TextView
+            android:id="@+id/staticDocType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserratregular"
+            android:text="@string/DocType"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:entries="@array/DocType"
+            android:fontFamily="@font/montserratregular"
+            android:spinnerMode="dropdown"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/montserratregular"
+            android:text="@string/Exp_date"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/expdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:ems="10"
+                android:fontFamily="@font/montserratregular"
+                android:inputType="date"
+                android:textSize="20sp" />
+
+            <Switch
+                android:id="@+id/expdateyesno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:buttonTint="#0B66E6"
+                android:checked="true"
+                android:drawableTint="#0B66E6"
+                android:fontFamily="@font/montserratregular"
+                android:foregroundTint="#AE0B6EE6"
+                android:showText="false"
+                tools:checked="true" />
+
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/rememberyesno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:buttonTint="#0288D1"
+            android:checked="false"
+            android:fontFamily="@font/montserratregular"
+            android:text="@string/Reameber"
+            android:textSize="20sp" />
+
+        <HorizontalScrollView
+            android:id="@+id/scrollimage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/montserratregular">
+
+            <LinearLayout
+                android:id="@+id/viewImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/montserratregular"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+    </LinearLayout>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/okButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="20dp"
         android:backgroundTint="#FFFFFF"
         android:clickable="true"
+        android:fontFamily="@font/montserratregular"
         android:src="@drawable/ic_insert_ok"
         android:tint="#9C4CAF50"
         app:fabCustomSize="55dp"
@@ -94,31 +142,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="60dp" />
 
-    <HorizontalScrollView
-        android:id="@+id/scrollimage"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/okButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rememberyesno">
-
-        <LinearLayout
-            android:id="@+id/viewImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" />
-    </HorizontalScrollView>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginStart="30dp"
-        android:text="@string/advancedOpt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

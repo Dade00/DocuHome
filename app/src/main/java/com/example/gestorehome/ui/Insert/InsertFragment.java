@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -172,7 +173,13 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.okButton) {
-            okButtonActions();
+            try {
+                okButtonActions();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } else {
             buttonTag = (int) v.getTag();
             if ((int) (v.getTag()) == imageButtonID - 1) //Nuovo
@@ -188,7 +195,7 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    private void okButtonActions() {
+    private void okButtonActions() throws ExecutionException, InterruptedException {
         //Updating actions
         //To DataBase
 
@@ -201,22 +208,28 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
             TextView textView1 = (TextView) root.findViewById(R.id.titolaretext);
             if(textView1.getText().length()>0 && myDocsImage.size() > 0)
             {
-                dBcontroller.addDoc(index, textView.getText().toString(), checkBox.isChecked(), textView1.getText().toString());
+                if(!dBcontroller.addDoc(index, textView.getText().toString(), checkBox.isChecked(), textView1.getText().toString())){
+                    Toast.makeText(getContext(), "ERROR DOC", Toast.LENGTH_LONG).show();
+                    return;
+                }
 
                 //Add picture
-                int lastInsert = dBcontroller.getLastID();
+                //int lastInsert = dBcontroller.getLastID();
                 for (int i = 0; i < myDocsImage.size(); i++) {
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     myDocsImage.get(i).compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     final byte[] byteArray = stream.toByteArray();
-                    dBcontroller.addPic(byteArray, lastInsert);
+                    if(!dBcontroller.addPic(byteArray, 1)) {
+                        Toast.makeText(getContext(), "Error IMAGE", Toast.LENGTH_LONG).show();
+                        return;
+                    }
                 }
                 dBcontroller.close();
-                Toast.makeText(getContext(), R.string.inserimentoaccepted, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.inserimentoaccepted, Toast.LENGTH_LONG).show();
                 clearFragment();
             }
             else
-                Toast.makeText(getContext(), R.string.inserimentonoaccepted, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.inserimentonoaccepted, Toast.LENGTH_LONG).show();
     }
 
     public void clearFragment() {

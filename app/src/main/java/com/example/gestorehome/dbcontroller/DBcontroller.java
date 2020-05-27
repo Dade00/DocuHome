@@ -1,6 +1,5 @@
 package com.example.gestorehome.dbcontroller;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -8,14 +7,26 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Base64;
 import android.util.Log;
 
+import org.apache.commons.lang3.BooleanUtils;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class DBcontroller {
     private static final String DATABASE_NOME = "myDoc";
     private static final int DATABASE_VERSIONE = 1;
-
     private static final String TABELLA_DOC =
             "CREATE TABLE " + DBmyDoc.docTable.TBL_NAME + " ( ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," +
                     DBmyDoc.docTable.FIELD_DOCTYPE + " INTEGER not null," +
@@ -70,21 +81,24 @@ public class DBcontroller {
         DBHelper.close();
     }
 
-    public long addDoc(int docType, String expDate, boolean remember, String titolare) {
-        ContentValues initialValues = new ContentValues();
-        initialValues.put(DBmyDoc.docTable.FIELD_DOCTYPE, docType);
-        initialValues.put(DBmyDoc.docTable.FIELD_EXPDATE, expDate);
-        initialValues.put(DBmyDoc.docTable.FIELD_TITOLARE, titolare);
-        int myInt = remember ? 1 : 0;
-        initialValues.put(DBmyDoc.docTable.FIELD_REMEMBERIT, (myInt));
-        return db.insert(DBmyDoc.docTable.TBL_NAME, null, initialValues);
+    public boolean addDoc(int docType, String expDate, boolean remember, String titolare) throws ExecutionException, InterruptedException {
+        InsertDoc callAPI = new InsertDoc();
+        int rem = BooleanUtils.toInteger(remember);
+        return callAPI.execute(Integer.toString(docType), expDate, titolare, Integer.toString(rem)).get();
     }
 
-    public long addPic(byte[] picS, int doc) {
+    public boolean addPic(byte[] picS, int doc) throws ExecutionException, InterruptedException {
+        /*
         ContentValues initialValues = new ContentValues();
         initialValues.put(DBmyDoc.picsTable.FIELD_DOCID, doc);
         initialValues.put(DBmyDoc.picsTable.FIELD_PIC, picS);
-        return db.insert(DBmyDoc.picsTable.TBL_NAME, null, initialValues);
+        return db.insert(DBmyDoc.picsTable.TBL_NAME, null, initialValues);*/
+        InsertPic callAPI = new InsertPic();
+        String encodedImage = Base64.encodeToString(picS, Base64.DEFAULT);
+        if(callAPI.execute(encodedImage,Integer.toString(doc), null).get())
+        return true;
+        else
+            return false;
     }
 
     public boolean cancellaDoc(long ID) {
@@ -192,13 +206,87 @@ public class DBcontroller {
         return temp;
     }
 
-/*
+}
 
-    public boolean aggiornaBambino(long rigaId, String name, String email) {
-        ContentValues args = new ContentValues();
-        args.put(DBbambini.FIELD_NOME, name);
-        args.put(DBbambini.FIELD_COGNOME, email);
-        return db.update(DBbambini.TBL_NAME, args, DBbambini.FIELD_ID + "=" + rigaId, null) > 0;
-    }*/
+class InsertPic extends AsyncTask<String, String, Boolean> {
+    private String urlPHP ="http://raspberrypi/dbQuery/insertPic.php";
+    private boolean fatto;
+    @Override
+    protected void onPreExecute() {
+    }
 
+    @Override
+    protected void onPostExecute(Boolean arg)
+    {
+
+    }
+
+    @Override
+    protected Boolean doInBackground(String... arg) {
+        String pic = arg[0];
+        String doc = arg[1];
+        try {
+            URL url = new URL(urlPHP);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
+            String data_String =URLEncoder.encode("docid", "UTF-8") + "=" + URLEncoder.encode(doc, "UTF-8") + "&" +
+                    URLEncoder.encode("image", "UTF-8") + "=" + URLEncoder.encode(pic, "UTF-8");
+            bufferedWriter.write(data_String);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+            InputStream inputStream = httpURLConnection.getInputStream();
+            inputStream.close();
+            httpURLConnection.disconnect();
+            fatto=true;
+            return fatto;
+        } catch (IOException e) {
+            fatto=false;
+            return fatto;
+        }
+    }
+}
+
+class InsertDoc extends AsyncTask<String, String, Boolean> {
+    @Override
+    protected void onPreExecute() {
+    }
+
+    @Override
+    protected void onPostExecute(Boolean result) {
+
+
+    }
+
+    @Override
+    protected Boolean doInBackground(String... arg) {
+        String docType = arg[0];
+        String expDate = arg[1];
+        String titolare = arg[2];
+        String reme = arg[3];
+        try {
+            String urlPHP = "http://raspberrypi/dbQuery/insertDoc.php";
+            URL url = new URL(urlPHP);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
+            String data_String =URLEncoder.encode("doctype", "UTF-8") + "=" + URLEncoder.encode(docType, "UTF-8") + "&" +
+                    URLEncoder.encode("expdate", "UTF-8") + "=" + URLEncoder.encode(expDate, "UTF-8") + "&" +
+                    URLEncoder.encode("titolare", "UTF-8") + "=" + URLEncoder.encode(titolare, "UTF-8")+ "&" +
+                    URLEncoder.encode("remember", "UTF-8") + "=" + URLEncoder.encode(reme, "UTF-8");
+            bufferedWriter.write(data_String);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+            httpURLConnection.disconnect();
+            return true ;
+        } catch (IOException e) {
+            return false;
+        }
+    }
 }

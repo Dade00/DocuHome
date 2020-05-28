@@ -200,7 +200,7 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
         //To DataBase
 
             DBcontroller dBcontroller = new DBcontroller(getContext());
-            dBcontroller.open();
+            //dBcontroller.open();
             Spinner spinner = (Spinner) root.findViewById(R.id.spinner);
             int index = spinner.getSelectedItemPosition();
             TextView textView = (TextView) root.findViewById(R.id.expdate);
@@ -214,27 +214,29 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
                 }
 
                 //Add picture
-                //int lastInsert = dBcontroller.getLastID();
+                int lastInsert = dBcontroller.getLastID();
                 for (int i = 0; i < myDocsImage.size(); i++) {
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     myDocsImage.get(i).compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     final byte[] byteArray = stream.toByteArray();
-                    if(!dBcontroller.addPic(byteArray, 1)) {
+                    if(!dBcontroller.addPic(byteArray, lastInsert)) {
                         Toast.makeText(getContext(), "Error IMAGE", Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
-                dBcontroller.close();
-                Toast.makeText(getContext(), R.string.inserimentoaccepted, Toast.LENGTH_LONG).show();
+                //dBcontroller.close();
                 clearFragment();
+                Toast.makeText(getContext(), R.string.inserimentoaccepted, Toast.LENGTH_LONG).show();
+
             }
             else
                 Toast.makeText(getContext(), R.string.inserimentonoaccepted, Toast.LENGTH_LONG).show();
     }
 
     public void clearFragment() {
-        int imageButtonID = 0, buttonTag = 0;
-        boolean falgNew = false;
+        imageButtonID = 0;
+        buttonTag = 0;
+        falgNew = false;
         myDocsImage.clear();
         Context context;
         LinearLayout nnew = new LinearLayout(getContext());

@@ -15,6 +15,7 @@ import com.example.gestorehome.dbcontroller.DBcontroller;
 import com.example.gestorehome.detail;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -29,39 +30,45 @@ public class MyDocFragment extends Fragment implements AdapterView.OnItemClickLi
         final View root = inflater.inflate(R.layout.fragment_mydoc, container, false);
         final ArrayList<Bitmap> dImage = new ArrayList<>();
         DBcontroller dBcontroller = new DBcontroller(getContext());
-        dBcontroller.open();
-        Data = dBcontroller.getDataContentList();
+        //dBcontroller.open();
+        try {
+            Data = dBcontroller.getDataContentList();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
         try {
             for (int i = 0; i < Data.get(0).size(); i++) {
                 dImage.add(dBcontroller.getFirstImageFromDocID(Integer.parseInt(Data.get(0).get(i).toString())));
             }
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
+
 
         ListView listView = (ListView) root.findViewById(R.id.listDoc);
         MyArrayAdapter adapter = new MyArrayAdapter(getContext(), Data, dImage);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener((AdapterView.OnItemClickListener) this);
-        dBcontroller.close();
+        listView.setOnItemClickListener(this);
+        //dBcontroller.close();
         root.setOnFocusChangeListener(new View.OnFocusChangeListener(){
 
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 DBcontroller dBcontroller = new DBcontroller(getContext());
-                dBcontroller.open();
+                /*dBcontroller.open();
                 Data = dBcontroller.getDataContentList();
                 try {
                     for (int i = 0; i < Data.get(0).size(); i++) {
                         dImage.add(dBcontroller.getFirstImageFromDocID(Integer.parseInt(Data.get(0).get(i).toString())));
                     }
                 } catch (Exception ex) {
-                }
+                }*/
 
                 ListView listView = (ListView) root.findViewById(R.id.listDoc);
                 MyArrayAdapter adapter = new MyArrayAdapter(getContext(), Data, dImage);
                 listView.setAdapter(adapter);
-                dBcontroller.close();
+                //dBcontroller.close();
             }
         });
         return root;

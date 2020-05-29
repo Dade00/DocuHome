@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.gestorehome.R;
 import com.example.gestorehome.dbcontroller.DBcontroller;
@@ -46,9 +47,15 @@ public class MyDocFragment extends Fragment implements AdapterView.OnItemClickLi
 
 
         ListView listView = (ListView) root.findViewById(R.id.listDoc);
-        MyArrayAdapter adapter = new MyArrayAdapter(getContext(), Data, dImage);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
+        try {
+            MyArrayAdapter adapter = new MyArrayAdapter(getContext(), Data, dImage);
+            listView.setAdapter(adapter);
+            listView.setOnItemClickListener(this);
+        }catch (Exception e){
+            TextView textNoDoc = root.findViewById(R.id.noDoc);
+            textNoDoc.setVisibility(View.VISIBLE);
+        }
+
         //dBcontroller.close();
         root.setOnFocusChangeListener(new View.OnFocusChangeListener(){
 

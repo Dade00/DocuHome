@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gestorehome.dbcontroller.DBcontroller;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -96,11 +97,20 @@ public class detail extends AppCompatActivity implements View.OnClickListener {
         {
             DBcontroller dBcontroller = new DBcontroller(this);
             long ii = Long.parseLong(ID);
-            /*dBcontroller.open();
-            dBcontroller.cancellaDoc(ii);
-            dBcontroller.close();*/
-            setResult(Activity.RESULT_OK);
-            this.finish();
+            /*dBcontroller.open();*/
+            boolean success = false;
+            try {
+                success = dBcontroller.cancellaDoc((int) ii);
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+
+            }
+            /*dBcontroller.close();*/
+            if(success)
+            {setResult(Activity.RESULT_OK);
+            this.finish();}
+            else
+                Toast.makeText(this, "Errore nella cancellazione, riprovare",Toast.LENGTH_SHORT).show();
         }
     }
 }

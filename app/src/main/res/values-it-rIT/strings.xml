@@ -19,4 +19,5 @@
     <string name="rembembering">Te lo ricordo?</string>
     <string name="titolare">Titolare:</string>
     <string name="inserimentonoaccepted">Errore: inserisci almeno il titolare e lo scan del documento</string>
+    <string name="noDoc">Non ci sono documenti presenti nel tuo account</string>
 </resources>

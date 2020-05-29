@@ -76,14 +76,12 @@ public class DBcontroller {
         String encodedImage = Base64.encodeToString(picS, Base64.DEFAULT);
         return insertPic.execute(encodedImage, Integer.toString(doc), null).get();
     }
-/*
-    public boolean cancellaDoc(long ID) {
-        boolean q = true;
-        db.delete(DBmyDoc.docTable.TBL_NAME, DBmyDoc.docTable.FIELD_ID + " = " + ID, null);
-        db.delete(DBmyDoc.picsTable.TBL_NAME, DBmyDoc.picsTable.FIELD_DOCID + " = " + ID, null);
-        return q;
+
+    public boolean cancellaDoc(int ID) throws ExecutionException, InterruptedException {
+        RemoveOneDoc removeOneDoc =new RemoveOneDoc();
+        return removeOneDoc.execute(String.valueOf(ID)).get();
     }
-*/
+
     public int getLastID() throws ExecutionException, InterruptedException {
         int ID = 0;
         SelectLID selectLID = new SelectLID();

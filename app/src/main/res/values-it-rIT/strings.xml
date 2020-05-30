@@ -13,7 +13,7 @@
     <string name="DocType">Tipo di documento:</string>
     <string name="Exp_date">Data di scadenza:</string>
     <string name="Inserisci">Inserisci</string>
-    <string name="Reameber">Vuoi che te lo ricordo?</string>
+    <string name="Reameber">Notifica:</string>
     <string name="inserimentoaccepted">Inserimento completato con successo</string>
     <string name="Pictures">Documento:</string>
     <string name="rembembering">Te lo ricordo?</string>

@@ -18,7 +18,7 @@
     <string name="Inserisci">Insert</string>
     <string name="DocType">Document type</string>
     <string name="Exp_date">Expiration date</string>
-    <string name="Reameber">Would you rember it?</string>
+    <string name="Reameber"> Notify: </string>
     <string name="advancedOpt">More Options</string>
     <string name="inserimentoaccepted">Insert complete</string>
     <string name="inserimentonoaccepted">Error: Insert almost author and doc image!</string>
@@ -40,7 +40,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string-array name="DocType">
-        <item>Bollettta</item>
+        <item>Bolletta</item>
         <item>Affitto</item>
         <item>Assicurazione</item>
         <item>Bollo</item>

@@ -11,6 +11,8 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -44,9 +46,10 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
     private int imageButtonID = 0, buttonTag = 0;
     public boolean falgNew = false;
     private View root;
+    private boolean CalOp = false;
     private LinearLayout viewCategoryNames;
     private ArrayList<Bitmap> myDocsImage = new ArrayList<>();
-    private LinearLayout.LayoutParams layoutParamsPREVIEW = new LinearLayout.LayoutParams(525, 700);
+    private LinearLayout.LayoutParams layoutParamsPREVIEW = new LinearLayout.LayoutParams(768, 1024);
 
     //Funzione che crea un ImageButton
     private ImageButton addButton() {
@@ -113,6 +116,12 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_insert, container, false);
         getActivity().setTitle(R.string.Inserisci);
+        //Font
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(requireContext(), R.array.DocType, R.layout.myspinnertext);// where array_name consists of the items to show in Spinner
+        adapter.setDropDownViewResource(R.layout.myspinnertext); // where custom-spinner is mycustom xml file.
+        Spinner mySpinner = root.findViewById(R.id.spinner);
+        mySpinner.setAdapter(adapter);
+
         final Switch mySwitch = root.findViewById(R.id.expdateyesno);
         mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -130,37 +139,34 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
         buildImageSection();
         FloatingActionButton ok = root.findViewById(R.id.okButton);
         ok.setOnClickListener(this);
-
         //OpenDatePicker
         final EditText eText=(EditText) root.findViewById(R.id.expdate);
         eText.setInputType(InputType.TYPE_NULL);
+        eText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    if (!CalOp)
+                        getCalendar(eText);
+            }
+        });
         eText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Calendar cldr = Calendar.getInstance();
-                final int day = cldr.get(Calendar.DAY_OF_MONTH);
-                int month = cldr.get(Calendar.MONTH);
-                int year = cldr.get(Calendar.YEAR);
-                // date picker dialog
-                DatePickerDialog picker = new DatePickerDialog(getContext(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                Date data = new GregorianCalendar(year, monthOfYear, dayOfMonth).getTime();
-                                Date now = new Date();
-                                now.getTime();
-                                if(data.after(now))
-                                    eText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                                else
-                                {
-                                    Toast.makeText(getContext(), R.string.todo, Toast.LENGTH_SHORT);
-                                    return;
-                                }
-                            }
-                        }, year, month, day);
-                picker.show();
+                if (!CalOp)
+                getCalendar(eText);
             }
         });
+        //Chiusura tastiere
+        EditText editText = root.findViewById(R.id.titolaretext);
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus)closeKeyboard(v);
+            }
+        });
+
+
         return root;
     }
 
@@ -254,4 +260,36 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
         spinner.setSelection(0);
     }
 
+    private void getCalendar(final EditText eText)
+    {
+        CalOp = true;
+            final Calendar cldr = Calendar.getInstance();
+            final int day = cldr.get(Calendar.DAY_OF_MONTH);
+            int month = cldr.get(Calendar.MONTH);
+            int year = cldr.get(Calendar.YEAR);
+            // date picker dialog
+            DatePickerDialog picker = new DatePickerDialog(getContext(),
+                    new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            Date data = new GregorianCalendar(year, monthOfYear, dayOfMonth).getTime();
+                            Date now = new Date();
+                            now.getTime();
+                            if (data.after(now))
+                                eText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            else {
+                                Toast.makeText(getContext(), "Invalid Date", Toast.LENGTH_SHORT).show();
+                            }
+                            CalOp=false;
+                        }
+                    }, year, month, day);
+            picker.show();
+    }
+
+    private void closeKeyboard(View view) {
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 }

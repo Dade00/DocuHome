@@ -322,6 +322,7 @@ class SelectOneDoc extends AsyncTask<String, String, ArrayList<ArrayList<String>
                 e.printStackTrace();
             }
         } catch (IOException e) {
+            e.printStackTrace();
             return null;
         }
         return ris;

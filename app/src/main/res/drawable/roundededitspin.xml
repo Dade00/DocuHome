@@ -5,11 +5,11 @@
             android:width="1dp"
             android:color="#2f6699" />
         <corners
-            android:radius="30dp"
+            android:radius="20dp"
             />
         <padding
-            android:bottom="7dip"
-            android:left="18dip"
-            android:right="18dip"
-            android:top="7dip" />
+            android:bottom="5dip"
+            android:left="10dip"
+            android:right="10dip"
+            android:top="5dip" />
 </shape>

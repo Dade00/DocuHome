@@ -6,96 +6,121 @@
     android:layout_height="match_parent"
     android:background="@drawable/backgroundlist">
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:layout_marginEnd="255dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:contentDescription="TODO"
-        android:fontFamily="@font/montserratregular"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="end"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></ImageView>
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/staticLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
-        android:autoSizeTextType="uniform"
-        android:fontFamily="@font/montserratregular"
-        android:text="@string/DocType"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/icon"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
 
-    <TextView
-        android:id="@+id/docTypeID"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:autoSizeTextType="uniform"
-        android:fontFamily="@font/montserratregular"
-        android:text="test"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/icon"
-        app:layout_constraintTop_toBottomOf="@+id/staticLabel" />
+        <ImageView
+            android:background="@drawable/strockeimg"
+            android:id="@+id/icon"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            />
 
-    <TextView
-        android:id="@+id/staticExpDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:autoSizeTextType="uniform"
-        android:fontFamily="@font/montserratregular"
-        android:text="@string/Exp_date"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/icon"
-        app:layout_constraintTop_toBottomOf="@+id/docTypeID" />
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/expDatevar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:autoSizeTextType="uniform"
-        android:fontFamily="@font/montserratregular"
-        android:text="00/00/0000"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/icon"
-        app:layout_constraintTop_toBottomOf="@+id/staticExpDate" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:paddingTop="0.5dp"
+                android:paddingBottom="0.5dp"
+                android:gravity="center"
+                android:fontFamily="@font/montserratregular"
+                android:text="@string/titolare"
+                android:background="@drawable/roundedtviews"
+                android:textSize="10pt" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/titolare"
-        android:textSize="22sp"
-        app:layout_constraintStart_toEndOf="@+id/icon"
-        app:layout_constraintTop_toBottomOf="@+id/expDatevar" />
+            <TextView
+                android:id="@+id/dynamictitolare"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:paddingTop="0.5dp"
+                android:paddingBottom="0.5dp"
+                android:gravity="center"
+                android:background="@drawable/roundedtviews2"
+                android:text="@string/test"
+                android:textSize="8pt" />
 
-    <TextView
-        android:id="@+id/dynamictitolare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:text="test"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/icon"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            <TextView
+                android:id="@+id/staticLabel"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:paddingTop="0.5dp"
+                android:paddingBottom="0.5dp"
+                android:background="@drawable/roundedtviews"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/montserratregular"
+                android:text="@string/DocType"
+                android:textSize="10pt" />
+
+            <TextView
+                android:id="@+id/docTypeID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:gravity="center"
+                android:paddingTop="0.5dp"
+                android:paddingBottom="0.5dp"
+                android:autoSizeTextType="uniform"
+                android:background="@drawable/roundedtviews2"
+                android:fontFamily="@font/montserratregular"
+                android:text="@string/test"
+                android:textSize="8pt" />
+
+            <TextView
+                android:id="@+id/staticExpDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:paddingTop="0.5dp"
+                android:paddingBottom="0.5dp"
+                android:background="@drawable/roundedtviews"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/montserratregular"
+                android:text="@string/Exp_date"
+                android:textSize="10pt" />
+
+            <TextView
+                android:id="@+id/expDatevar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/roundedtviews2"
+                android:paddingTop="0.5dp"
+                android:paddingBottom="0.5dp"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/montserratregular"
+                android:text="@string/test"
+                android:textSize="8pt" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">#33073578</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -19,5 +20,9 @@
 
     <style name="SpinnerTheme" parent="android:Widget.Spinner">
         <item name="android:background">@drawable/itemarrows</item>
+    </style>
+
+    <style name="IMGtheme" parent="android:Widget.Spinner">
+        <item name="android:background">@drawable/strockeimg</item>
     </style>
 </resources>

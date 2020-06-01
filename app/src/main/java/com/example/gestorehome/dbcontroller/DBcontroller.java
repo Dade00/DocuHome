@@ -2,6 +2,7 @@ package com.example.gestorehome.dbcontroller;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.util.Base64;
 
 import org.apache.commons.lang3.BooleanUtils;
@@ -65,15 +66,16 @@ public class DBcontroller {
         DBHelper.close();
     }*/
 
-    public boolean addDoc(int docType, String expDate, boolean remember, String titolare) throws ExecutionException, InterruptedException {
+    public boolean addDoc(int docType, String expDate, boolean remember, String titolare, Context context) throws ExecutionException, InterruptedException {
         InsertDoc insertDoc = new InsertDoc();
         int rem = BooleanUtils.toInteger(remember);
         return insertDoc.execute(Integer.toString(docType), expDate, titolare, Integer.toString(rem)).get();
     }
 
-    public boolean addPic(byte[] picS, int doc) throws ExecutionException, InterruptedException {
+    public boolean addPic(byte[] picS, int doc, Context context) throws ExecutionException, InterruptedException {
         InsertPic insertPic = new InsertPic();
         String encodedImage = Base64.encodeToString(picS, Base64.DEFAULT);
+        insertPic.CTX = context;
         return insertPic.execute(encodedImage, Integer.toString(doc), null).get();
     }
 
@@ -91,7 +93,7 @@ public class DBcontroller {
 
     public ArrayList<ArrayList<String>> getDataContentList() throws ExecutionException, InterruptedException {
         SelectAllDoc selectAllDoc = new SelectAllDoc();
-        ArrayList<ArrayList<String>> ret = new ArrayList<>(selectAllDoc.execute().get());
+        ArrayList<ArrayList<String>> ret = new ArrayList<>(selectAllDoc.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR).get());
         return ret ;
     }
 
@@ -108,7 +110,7 @@ public class DBcontroller {
         }*/
         SelectBitmapDocID selectBitmapDocID = new SelectBitmapDocID();
 
-        return selectBitmapDocID.execute(String.valueOf(ID)).get();
+        return selectBitmapDocID.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, String.valueOf(ID)).get();
     }
 
     public ArrayList<Bitmap> getAllBitmapForID(String ID) throws ExecutionException, InterruptedException {

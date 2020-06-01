@@ -1,5 +1,6 @@
 package com.example.gestorehome.dbcontroller;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -19,14 +20,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+
 class InsertDoc extends AsyncTask<String, String, Boolean> {
     @Override
     protected void onPreExecute() {
+        super.onPreExecute();
     }
 
     @Override
     protected void onPostExecute(Boolean result) {
-
+        super.onPostExecute(result);
 
     }
 
@@ -64,13 +67,16 @@ class InsertDoc extends AsyncTask<String, String, Boolean> {
 }
 
 class InsertPic extends AsyncTask<String, String, Boolean> {
+    public Context CTX =null;
     @Override
     protected void onPreExecute() {
+        super.onPreExecute();
+
     }
 
     @Override
-    protected void onPostExecute(Boolean arg)
-    {
+    protected void onPostExecute(Boolean result) {
+        super.onPostExecute(result);
 
     }
 
@@ -347,7 +353,7 @@ class SelectBitmapDocID extends AsyncTask<String, String, Bitmap> {
         String res = null;
         Bitmap bm = null;
         try {
-            String urlPHP = DBmyDoc.srvStart + "/Get/SelBitmapFromDocID.php";
+            String urlPHP = DBmyDoc.srvStart + "/Get/SelFBitmapFromDocID.php";
             URL url = new URL(urlPHP);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");

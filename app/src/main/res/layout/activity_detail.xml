@@ -8,108 +8,159 @@
     android:fontFamily="@font/montserratregular"
     tools:context=".detail">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserratregular"
-        android:orientation="vertical"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/staticName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserratregular"
-            android:text="@string/titolare"
-            android:layout_marginBottom="4dp"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/dynamicName"
-            android:layout_width="wrap_content"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserratregular"
-            android:layout_marginBottom="4dp"
-            android:text="TEST"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/StaticDocTypr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserratregular"
-            android:layout_marginBottom="4dp"
-            android:text="@string/DocType"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/dynamicDocType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:fontFamily="@font/montserratregular"
-            android:text="TEST"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/staticExpDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:fontFamily="@font/montserratregular"
-            android:text="@string/Exp_date"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/dynamicExpDate"
-            android:layout_width="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserratregular"
-            android:text="00/00/0000"
-            android:textSize="16sp" />
-
-        <CheckBox
-            android:id="@+id/dynamicRemberYesNo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:button="@null"
-            android:layout_marginBottom="4dp"
-            android:drawableRight="@drawable/checknotify"
-            android:fontFamily="@font/montserratregular"
-            android:drawablePadding="20dp"
-            android:text="@string/rembembering" />
-
-        <TextView
-            android:id="@+id/statiPictures"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserratregular"
-            android:layout_marginBottom="8dp"
-            android:text="@string/Pictures"
-            android:textSize="20sp" />
-
-        <HorizontalScrollView
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserratregular"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/viewDocsImage"
+            <TextView
+                android:id="@+id/staticName"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="1dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundedtviews"
+                android:fontFamily="@font/montserratregular"
+                android:text="@string/titolare"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/dynamicName"
+                android:gravity="center"
+                android:background="@drawable/roundedtviews2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/montserratregular"
+                android:paddingBottom="5dp"
+                android:paddingTop="2dp"
+                android:text="@string/test"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/StaticDocTypr"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:paddingTop="2dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/roundedtviews"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/montserratregular"
+                android:text="@string/DocType"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/dynamicDocType"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/montserratregular"
+                android:background="@drawable/roundedtviews2"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/test"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/staticExpDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:gravity="center"
+                android:paddingBottom="4dp"
+                android:fontFamily="@font/montserratregular"
+                android:text="@string/Exp_date"
+                android:background="@drawable/roundedtviews"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/dynamicExpDate"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/roundedtviews2"
+                android:layout_marginStart="20dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/montserratregular"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/test"
+                android:textSize="18sp" />
+
+            <CheckBox
+                android:id="@+id/dynamicRemberYesNo"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="10dp"
+                android:button="@null"
+                android:background="@drawable/allrounded"
+                android:clickable="false"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:drawableEnd="@drawable/checknotify"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/montserratregular"
+                android:text="@string/Reameber" />
+
+            <TextView
+                android:id="@+id/statiPictures"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingTop="10dp"
+                android:gravity="center"
+                android:background="@drawable/roundedtviews"
+                android:fontFamily="@font/montserratregular"
+                android:text="@string/Pictures"
+                android:textSize="20sp" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
-    </LinearLayout>
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/roundedtviews2"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:id="@+id/viewDocsImage"
+                    android:layout_width="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
+        </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/backButtone"

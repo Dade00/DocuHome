@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -23,8 +24,6 @@ import java.util.concurrent.ExecutionException;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class detail extends AppCompatActivity implements View.OnClickListener {
-
-    private LinearLayout.LayoutParams layoutParamsPREVIEW = new LinearLayout.LayoutParams(525, 700);
     private LinearLayout viewCategoryNames;
     private  String ID;
 
@@ -32,12 +31,11 @@ public class detail extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
+        this.setTitle(R.string.details);
         Intent intent = getIntent();
         ID = intent.getStringExtra("EXTRA_ID");
 
         DBcontroller dBcontroller = new DBcontroller(this);
-
 
         //dBcontroller.open();
         ArrayList<Bitmap> image = null;
@@ -80,6 +78,8 @@ public class detail extends AppCompatActivity implements View.OnClickListener {
     }
 
     private ImageView addButton(Bitmap content) {
+        DisplayMetrics metrics = this.getResources().getDisplayMetrics();
+        final LinearLayout.LayoutParams layoutParamsPREVIEW = new LinearLayout.LayoutParams((int)(metrics.widthPixels*0.80), (int)(metrics.heightPixels*0.80));
         layoutParamsPREVIEW.setMargins(0, 10, 30, 10);
         final ImageView btDoc = new ImageView(this);
         btDoc.setLayoutParams(layoutParamsPREVIEW);

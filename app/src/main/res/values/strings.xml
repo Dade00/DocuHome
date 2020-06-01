@@ -25,6 +25,9 @@
     <string name="rembembering">Remember it?</string>
     <string name="titolare">Author</string>
     <string name="noDoc">No Docs present for your account</string>
+    <string name="details">Details</string>
+<string name="loading" translatable="false">Loading...</string>
+    <string name="WinsDoc">Wait, insert documents</string>
 
 
     <string name="menu_gallery">My doc</string>
@@ -39,6 +42,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="test">TEST</string>
     <string-array name="DocType">
         <item>Bolletta</item>
         <item>Affitto</item>

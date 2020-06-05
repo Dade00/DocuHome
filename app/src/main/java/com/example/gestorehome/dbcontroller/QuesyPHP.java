@@ -3,6 +3,7 @@ package com.example.gestorehome.dbcontroller;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
 import android.util.Base64;
 
@@ -392,8 +393,8 @@ class SelectBitmapDocID extends AsyncTask<String, String, Bitmap> {
                 jsonObject = jsonArray.getJSONObject(0);
                 res = jsonObject.getString("pic");
                 byte[] bytes = Base64.decode(res, Base64.DEFAULT);
-                bm = BitmapFactory.decodeByteArray(bytes, 0 ,bytes.length);
-
+                bm = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeByteArray(bytes, 0 ,bytes.length),
+                        384, 512 );
             }
             catch (Exception e){
                 e.printStackTrace();
@@ -553,3 +554,4 @@ class RemoveOneDoc extends AsyncTask<String, String, Boolean> {
         return flag;
     }
 }
+

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gestorehome.dbcontroller.DBcontroller;
+import com.example.gestorehome.ui.LoadingDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.apache.commons.lang3.BooleanUtils;
@@ -26,7 +28,9 @@ import androidx.appcompat.app.AppCompatActivity;
 public class detail extends AppCompatActivity implements View.OnClickListener {
     private LinearLayout viewCategoryNames;
     private  String ID;
-
+    private  ArrayList<ArrayList<String>> data = null;
+    private ArrayList<Bitmap> image = null;
+    private Activity act = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,47 +38,75 @@ public class detail extends AppCompatActivity implements View.OnClickListener {
         this.setTitle(R.string.details);
         Intent intent = getIntent();
         ID = intent.getStringExtra("EXTRA_ID");
+        final DBcontroller dBcontroller = new DBcontroller(this);
+        class UIworker extends AsyncTask<Activity, String, Void> {
+            final LoadingDialog loadingDialog = new LoadingDialog(act);
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
 
-        DBcontroller dBcontroller = new DBcontroller(this);
+                loadingDialog.startLoadingDialog();
+            }
 
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+
+
+                TextView docType = findViewById(R.id.dynamicDocType);
+                TextView expDate = findViewById(R.id.dynamicExpDate);
+                TextView titolare = findViewById(R.id.dynamicName);
+                CheckBox rembembering = findViewById(R.id.dynamicRemberYesNo);
+
+
+
+
+                viewCategoryNames = findViewById(R.id.viewDocsImage);
+                for (int i = 0; i < image.size(); i++) {
+                    viewCategoryNames.addView(addButton(image.get(i)));
+                }
+                Resources res = act.getResources();
+                String[] tempVal = res.getStringArray(R.array.DocType);
+                docType.setText(tempVal[Integer.parseInt(data.get(1).get(0))]);
+                expDate.setText(data.get(2).get(0));
+                titolare.setText(data.get(3).get(0));
+                int myInt = Integer.parseInt(data.get(4).get(0));
+                boolean myBool = BooleanUtils.toBoolean(myInt);
+                rembembering.setChecked(myBool);
+                //dBcontroller.close();
+
+                FloatingActionButton button = findViewById(R.id.backButtone);
+                button.setOnClickListener((View.OnClickListener)act);
+
+                FloatingActionButton button2 = findViewById(R.id.deleteButton);
+                button2.setOnClickListener((View.OnClickListener)act);
+
+                loadingDialog.dismissDialog();
+
+            }
+
+            @Override
+            protected Void doInBackground(Activity... arg) {
+                try {
+                    data = new ArrayList<>(dBcontroller.getDataFromID(ID));
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    image = new ArrayList<>(dBcontroller.getAllBitmapForID(ID));
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+        }
+
+        UIworker uIworker = new UIworker();
+        uIworker.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, this);
         //dBcontroller.open();
-        ArrayList<Bitmap> image = null;
-        try {
-            image = new ArrayList<>(dBcontroller.getAllBitmapForID(ID));
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        viewCategoryNames = findViewById(R.id.viewDocsImage);
-        for (int i = 0; i < image.size(); i++) {
-            viewCategoryNames.addView(addButton(image.get(i)));
-        }
 
-        TextView docType = findViewById(R.id.dynamicDocType);
-        TextView expDate = findViewById(R.id.dynamicExpDate);
-        TextView titolare = findViewById(R.id.dynamicName);
-        CheckBox rembembering = findViewById(R.id.dynamicRemberYesNo);
-
-        ArrayList<ArrayList<String>> data = null;
-        try {
-            data = new ArrayList<>(dBcontroller.getDataFromID(ID));
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        Resources res = this.getResources();
-        String[] tempVal = res.getStringArray(R.array.DocType);
-        docType.setText(tempVal[Integer.parseInt(data.get(1).get(0))]);
-        expDate.setText(data.get(2).get(0));
-        titolare.setText(data.get(3).get(0));
-        int myInt = Integer.parseInt(data.get(4).get(0));
-        boolean myBool = BooleanUtils.toBoolean(myInt);
-        rembembering.setChecked(myBool);
-        //dBcontroller.close();
-
-        FloatingActionButton button = findViewById(R.id.backButtone);
-        button.setOnClickListener(this);
-
-        FloatingActionButton button2 = findViewById(R.id.deleteButton);
-        button2.setOnClickListener(this);
     }
 
     private ImageView addButton(Bitmap content) {

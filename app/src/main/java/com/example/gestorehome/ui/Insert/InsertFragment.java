@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -37,6 +38,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -62,9 +64,21 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
     private boolean CalOp = false;
     private LinearLayout viewCategoryNames;
     private Uri mImageUri;
-    private  File photo;
+    private File photo;
+    private  ArrayList<Uri> mUriImm = new ArrayList<>();
     private ArrayList<Bitmap> myDocsImage = new ArrayList<>();
+    private ArrayList<Bitmap> myDocsImagexUp = new ArrayList<>();
     private Bundle bundle;
+
+
+    /*@Override
+    public void onDestroy() {
+        super.onDestroy();
+        for (int i = 0; i < mUriImm.size(); i++) {
+            File file = new File(mUriImm.get(i));
+        }
+    }*/
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_insert, container, false);
@@ -148,15 +162,22 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap a = null;
         if (requestCode == MY_CAMERA_PERMISSION_CODE && resultCode == RESULT_OK) {
-            a = grabImage();
-            photo.delete();
-            //Transform image in BitMap
+            Uri mUri = grabImage();
+            ContentResolver cr = requireContext().getContentResolver();
+            Bitmap a = null;
+            try {
+                a = ThumbnailUtils.extractThumbnail((MediaStore.Images.Media.getBitmap(cr, mImageUri)),
+                        384, 512 );
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             try {
                 myDocsImage.set(buttonTag, a);
+                mUriImm.set(buttonTag, mUri);
             } catch (Exception ex) {
                 myDocsImage.add(buttonTag, a);
+                mUriImm.add(mUri);
 
                 ArrayList<ImageButton> imageButtons = new ArrayList<>();
                 for (int i = 0; i < imageButtonID; i++) {
@@ -175,7 +196,7 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
         if (v.getId() == R.id.okButton) {
             try {
                 okButtonActions();
-            } catch (ExecutionException | InterruptedException e) {
+            } catch (ExecutionException | InterruptedException | IOException e) {
                 e.printStackTrace();
             }
         } else {
@@ -193,7 +214,7 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
     }
 
     //Inserimento nel DB dei dati con il bottone floating
-    private void okButtonActions() throws ExecutionException, InterruptedException {
+    private void okButtonActions() throws ExecutionException, InterruptedException, IOException {
         //Updating actions
         //To DataBase
 
@@ -207,17 +228,34 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
         if (textView1.getText().length() > 0 && myDocsImage.size() > 0) {
             LoadingDialog loadingDialog = new LoadingDialog(getActivity());
             loadingDialog.startLoadingDialog();
-            if (!dBcontroller.addDoc(index, textView.getText().toString(), checkBox.isChecked(), textView1.getText().toString(), getContext())) {
-                Toast.makeText(getContext(), "ERROR DOC", Toast.LENGTH_LONG).show();
-                loadingDialog.dismissDialog();
-                return;
+            Switch s = (Switch) root.findViewById(R.id.expdateyesno);
+            if (s.isChecked()) {
+                if (textView.getText().length() > 0) {
+                    if (!dBcontroller.addDoc(index, textView.getText().toString(), checkBox.isChecked(), textView1.getText().toString(), getContext())) {
+                        Toast.makeText(getContext(), "ERROR DOC", Toast.LENGTH_LONG).show();
+                        loadingDialog.dismissDialog();
+                        return;
+                    }
+                } else {
+                    Toast.makeText(getContext(), R.string.Nodate, Toast.LENGTH_LONG).show();
+                    loadingDialog.dismissDialog();
+                    return;
+                }
+            } else {
+                if (!dBcontroller.addDoc(index, "NOEXP", false, textView1.getText().toString(), getContext())) {
+                    Toast.makeText(getContext(), "ERROR DOC", Toast.LENGTH_LONG).show();
+                    loadingDialog.dismissDialog();
+                    return;
+                }
             }
 
             //Add picture
             int lastInsert = dBcontroller.getLastID();
-            for (int i = 0; i < myDocsImage.size(); i++) {
+            for (int i = 0; i < mUriImm.size(); i++) {
+                ContentResolver cr = requireContext().getContentResolver();
+                Bitmap tr = android.provider.MediaStore.Images.Media.getBitmap(cr, mUriImm.get(i));
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                myDocsImage.get(i).compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                tr.compress(Bitmap.CompressFormat.JPEG, 85, stream);
                 final byte[] byteArray = stream.toByteArray();
                 if (!dBcontroller.addPic(byteArray, lastInsert, getContext())) {
                     loadingDialog.dismissDialog();
@@ -342,18 +380,18 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
 
     private File createTemporaryFile(String picture, String s) throws Exception {
         File tempDir = Environment.getExternalStorageDirectory();
-        tempDir = new File(tempDir.getAbsolutePath() + "/gestorehome/");
+        tempDir = new File(tempDir.getAbsolutePath() + "/.temp/");
         if (!tempDir.exists()) {
             tempDir.mkdirs();
         }
         return File.createTempFile(picture, s, tempDir);
     }
 
-    public Bitmap grabImage() {
+    public Uri grabImage() {
         requireContext().getContentResolver().notifyChange(mImageUri, null);
         ContentResolver cr = requireContext().getContentResolver();
         try {
-            return android.provider.MediaStore.Images.Media.getBitmap(cr, mImageUri);
+            return mImageUri;
         } catch (Exception e) {
             Toast.makeText(requireContext(), "Failed to load", Toast.LENGTH_SHORT).show();
             return null;

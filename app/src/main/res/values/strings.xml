@@ -26,23 +26,27 @@
     <string name="titolare">Author</string>
     <string name="noDoc">No Docs present for your account</string>
     <string name="details">Details</string>
-<string name="loading" translatable="false">Loading...</string>
+    <string name="loading" translatable="false">Loading...</string>
     <string name="WinsDoc">Wait, insert documents</string>
-
+    <string name="Nodate">Insert date or turn off date remember!</string>
 
     <string name="menu_gallery">My doc</string>
     <string name="title_activity_detail">detailActivity</string>
     <string name="Pictures">"Document:"</string>
     <string name="title_activity_login">Sign in</string>
-    <string name="prompt_email">Email</string>
+    <string name="prompt_email" translatable="false">Username</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="prompt_passwordR">Repeat Password</string>
+    <string name="action_sign_in">Sigin</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="InsertCmpl">"Welcome!"</string>
     <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_password">Write the same password</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="test">TEST</string>
+    <string name="login_before">"You must logon!"</string>
+    <string name="userimage">User Image:</string>
+    <string name="register" >Register</string>
+    <string name="test" translatable="false">TEST</string>
     <string-array name="DocType">
         <item>Bolletta</item>
         <item>Affitto</item>

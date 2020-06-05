@@ -22,4 +22,11 @@
     <string name="noDoc">Non ci sono documenti presenti nel tuo account</string>
     <string name="details">Dettagli</string>
     <string name="WinsDoc">Inserimento dati del documento in corso</string>
+    <string name="Nodate">Inserisci la data o disabilitala!</string>
+    <string name="action_sign_in_short">Accedi</string>
+    <string name="register">Registrati</string>
+    <string name="userimage">Immagine utente:</string>
+    <string name="prompt_passwordR">Ripeti password</string>
+    <string name="invalid_password">Scrivi la stessa password</string>
+    <string name="login_before">Prima devi accedere!</string>
 </resources>

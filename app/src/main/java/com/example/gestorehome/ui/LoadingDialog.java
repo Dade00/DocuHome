@@ -2,6 +2,8 @@ package com.example.gestorehome.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 
 import com.example.gestorehome.R;
@@ -21,7 +23,9 @@ private AlertDialog dialog;
         builder.setView(layoutInflater.inflate(R.layout.loadingalert, null));
         builder.setCancelable(false);
 
+
         dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
     }
 

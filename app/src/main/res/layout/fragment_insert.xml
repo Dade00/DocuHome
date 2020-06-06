@@ -114,6 +114,7 @@
                     android:fontFamily="@font/montserratregular"
                     android:foregroundTint="#AE0B6EE6"
                     android:showText="false"
+                    android:textColorLink="#ADCAD8"
                     tools:checked="true" />
 
             </LinearLayout>

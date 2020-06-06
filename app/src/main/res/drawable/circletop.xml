@@ -5,7 +5,7 @@
     <solid android:color="@color/trans" />
     <stroke
         android:width="2.5dp"
-        android:color="#2f6699" />
+        android:color="#ffffff" />
     <padding
         android:bottom="2dp"
         android:left="2dp"

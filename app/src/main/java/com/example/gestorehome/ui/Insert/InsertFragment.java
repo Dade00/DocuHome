@@ -31,6 +31,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gestorehome.GetUser;
 import com.example.gestorehome.R;
 import com.example.gestorehome.dbcontroller.DBcontroller;
 import com.example.gestorehome.ui.LoadingDialog;
@@ -67,7 +68,6 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
     private File photo;
     private  ArrayList<Uri> mUriImm = new ArrayList<>();
     private ArrayList<Bitmap> myDocsImage = new ArrayList<>();
-    private ArrayList<Bitmap> myDocsImagexUp = new ArrayList<>();
     private Bundle bundle;
 
 
@@ -228,10 +228,13 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
         if (textView1.getText().length() > 0 && myDocsImage.size() > 0) {
             LoadingDialog loadingDialog = new LoadingDialog(getActivity());
             loadingDialog.startLoadingDialog();
+            GetUser getUser =new GetUser();
+            String IDut =  getUser.getUserID(requireContext());
             Switch s = (Switch) root.findViewById(R.id.expdateyesno);
+
             if (s.isChecked()) {
                 if (textView.getText().length() > 0) {
-                    if (!dBcontroller.addDoc(index, textView.getText().toString(), checkBox.isChecked(), textView1.getText().toString(), getContext())) {
+                    if (!dBcontroller.addDoc(index, textView.getText().toString(), checkBox.isChecked(), textView1.getText().toString(), IDut)) {
                         Toast.makeText(getContext(), "ERROR DOC", Toast.LENGTH_LONG).show();
                         loadingDialog.dismissDialog();
                         return;
@@ -242,7 +245,7 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
                     return;
                 }
             } else {
-                if (!dBcontroller.addDoc(index, "NOEXP", false, textView1.getText().toString(), getContext())) {
+                if (!dBcontroller.addDoc(index, "NOEXP", false, textView1.getText().toString(), IDut)) {
                     Toast.makeText(getContext(), "ERROR DOC", Toast.LENGTH_LONG).show();
                     loadingDialog.dismissDialog();
                     return;
@@ -250,14 +253,14 @@ public class InsertFragment extends Fragment implements View.OnClickListener {
             }
 
             //Add picture
-            int lastInsert = dBcontroller.getLastID();
+            int lastInsert = dBcontroller.getLastID(IDut);
             for (int i = 0; i < mUriImm.size(); i++) {
                 ContentResolver cr = requireContext().getContentResolver();
                 Bitmap tr = android.provider.MediaStore.Images.Media.getBitmap(cr, mUriImm.get(i));
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 tr.compress(Bitmap.CompressFormat.JPEG, 85, stream);
                 final byte[] byteArray = stream.toByteArray();
-                if (!dBcontroller.addPic(byteArray, lastInsert, getContext())) {
+                if (!dBcontroller.addPic(byteArray, lastInsert, getContext(), IDut)) {
                     loadingDialog.dismissDialog();
                     Toast.makeText(getContext(), "Error IMAGE", Toast.LENGTH_LONG).show();
                     return;

@@ -12,11 +12,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.gestorehome.GetUser;
 import com.example.gestorehome.R;
 import com.example.gestorehome.dbcontroller.DBcontroller;
 import com.example.gestorehome.detail;
 import com.example.gestorehome.ui.LoadingDialog;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -28,6 +30,9 @@ public class MyDocFragment extends Fragment {
     private ArrayList<ArrayList<String>> Data;
     private View root;
     final ArrayList<Bitmap> dImage = new ArrayList<>();
+
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle(R.string.menu_mydoc);
@@ -65,25 +70,28 @@ public class MyDocFragment extends Fragment {
 
             @Override
             protected Void doInBackground(String... arg) {
-
                 DBcontroller dBcontroller = new DBcontroller(getContext());
-                //dBcontroller.open();
+                GetUser getUser = new GetUser();
                 try {
-                    Data = dBcontroller.getDataContentList();
-                } catch (ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    for (int i = 0; i < Data.get(0).size(); i++) {
-                        dImage.add(dBcontroller.getFirstImageFromDocID(Integer.parseInt(Data.get(0).get(i).toString())));
+                    String IDut = getUser.getUserID(requireContext());
+                    try {
+                        Data = dBcontroller.getDataContentList(IDut);
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception ignored) {
+
+                    try {
+                        for (int i = 0; i < Data.get(0).size(); i++) {
+                            dImage.add(dBcontroller.getFirstImageFromDocID(Integer.parseInt(Data.get(0).get(i).toString()), IDut));
+                        }
+                    } catch (Exception ignored) {
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 return null;
             }
         }
-        //dBcontroller.close();
         StartAct startAct = new StartAct();
         startAct.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         return root;
@@ -99,6 +107,7 @@ public class MyDocFragment extends Fragment {
         {
             Data.clear();
             dImage.clear();
+            assert getFragmentManager() != null;
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             ft.detach(this).attach(this).commit();
         }

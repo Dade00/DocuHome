@@ -29,4 +29,5 @@
     <string name="prompt_passwordR">Ripeti password</string>
     <string name="invalid_password">Scrivi la stessa password</string>
     <string name="login_before">Prima devi accedere!</string>
+    <string name="logout">Esci</string>
 </resources>

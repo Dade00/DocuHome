@@ -5,10 +5,7 @@
             <solid android:color="@color/trans" />
             <stroke
                 android:width="0.5dp"
-                android:color="#2f6699" />
-            <corners android:topLeftRadius="20dp"
-                android:topRightRadius="20dp"
-                />
+                android:color="@color/rowBorder" />
         </shape>
     </item>
 </layer-list>

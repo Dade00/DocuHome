@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#26C6DA</color>
-    <color name="colorPrimaryDark">#42A5F5</color>
+    <color name="colorPrimary">#1786bd</color>
+    <color name="colorPrimaryDark">#304FFE</color>
     <color name="colorAccent">#098107</color>
     <color name="trans">@android:color/transparent</color>
+    <color name="statusBar">#000000</color>
+    <color name="rowText">#E8E8E8</color>
+    <color name="rowBorder">#C0D0DC</color>
 </resources>

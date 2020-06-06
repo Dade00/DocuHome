@@ -41,10 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 class LoginTask extends AsyncTask<String, String, String> {
                     String IDut = null;
-
                     @Override
                     protected void onPreExecute() {
                         super.onPreExecute();

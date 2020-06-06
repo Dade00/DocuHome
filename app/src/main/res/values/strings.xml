@@ -47,6 +47,8 @@
     <string name="userimage">User Image:</string>
     <string name="register" >Register</string>
     <string name="test" translatable="false">TEST</string>
+    <string name="logout">Logout</string>
+
     <string-array name="DocType">
         <item>Bolletta</item>
         <item>Affitto</item>

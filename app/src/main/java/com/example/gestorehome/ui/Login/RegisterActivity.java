@@ -20,6 +20,7 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.gestorehome.R;
@@ -129,13 +130,6 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         imageButton = (ImageButton) findViewById(R.id.imageUsr);
-        /*Bitmap bm = BitmapFactory.decodeResource(getResources(),
-                R.drawable.ic_baseline_photo_camera_24);
-        Bitmap resized = Bitmap.createScaledBitmap(bm, 200,200 , true);
-        Bitmap conv_bm = getRoundedRectBitmap(resized, 200);
-        imageButton.setImageBitmap(conv_bm);
-        resized.recycle();
-        bm.recycle();*/
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,6 +179,7 @@ public class RegisterActivity extends AppCompatActivity {
             assert imageBitmap != null;
             //Bitmap resized = Bitmap.createScaledBitmap(imageBitmap, 200,200 , true);
             Bitmap conv_bm = getRoundedRectBitmap(imageBitmap, 150);
+            imageButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
             imageButton.setImageBitmap(conv_bm);
             Bitmap.Config config;
             imaFinal = conv_bm;

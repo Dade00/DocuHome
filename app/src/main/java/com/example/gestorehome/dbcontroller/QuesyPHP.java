@@ -40,6 +40,7 @@ class InsertDoc extends AsyncTask<String, String, Boolean> {
         String expDate = arg[1];
         String titolare = arg[2];
         String reme = arg[3];
+        String idUT = arg[4];
         try {
             String urlPHP = DBmyDoc.srvStart + "/Insert/InsDoc.php";
             URL url = new URL(urlPHP);
@@ -51,7 +52,8 @@ class InsertDoc extends AsyncTask<String, String, Boolean> {
             String data_String = URLEncoder.encode("doctype", "UTF-8") + "=" + URLEncoder.encode(docType, "UTF-8") + "&" +
                     URLEncoder.encode("expdate", "UTF-8") + "=" + URLEncoder.encode(expDate, "UTF-8") + "&" +
                     URLEncoder.encode("titolare", "UTF-8") + "=" + URLEncoder.encode(titolare, "UTF-8") + "&" +
-                    URLEncoder.encode("remember", "UTF-8") + "=" + URLEncoder.encode(reme, "UTF-8");
+                    URLEncoder.encode("remember", "UTF-8") + "=" + URLEncoder.encode(reme, "UTF-8") + "&" +
+                    URLEncoder.encode("idut", "UTF-8") + "=" + URLEncoder.encode(idUT, "UTF-8");
             bufferedWriter.write(data_String);
             bufferedWriter.flush();
             bufferedWriter.close();
@@ -85,6 +87,7 @@ class InsertPic extends AsyncTask<String, String, Boolean> {
     protected Boolean doInBackground(String... arg) {
         String pic = arg[0];
         String doc = arg[1];
+        String IDut = arg[2];
         try {
             String urlPHP = DBmyDoc.srvStart + "/Insert/InsPic.php";
             URL url = new URL(urlPHP);
@@ -94,7 +97,8 @@ class InsertPic extends AsyncTask<String, String, Boolean> {
             OutputStream outputStream = httpURLConnection.getOutputStream();
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
             String data_String =URLEncoder.encode("docid", "UTF-8") + "=" + URLEncoder.encode(doc, "UTF-8") + "&" +
-                    URLEncoder.encode("image", "UTF-8") + "=" + URLEncoder.encode(pic, "UTF-8");
+                    URLEncoder.encode("image", "UTF-8") + "=" + URLEncoder.encode(pic, "UTF-8")+ "&" +
+                    URLEncoder.encode("idut", "UTF-8") + "=" + URLEncoder.encode(IDut, "UTF-8");
             bufferedWriter.write(data_String);
             bufferedWriter.flush();
             bufferedWriter.close();
@@ -124,21 +128,19 @@ class SelectLID extends AsyncTask<String, String, Integer> {
     protected Integer doInBackground(String... arg) {
         String result = null;
         String res = null;
+        String id = arg[0];
         try {
-            String urlPHP = "http://raspberrypi:8080/dbQuery/Get/SelLastID.php";
+            String urlPHP = DBmyDoc.srvStart + "/Get/SelLastID.php";
             URL url = new URL(urlPHP);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoOutput(true);
             OutputStream outputStream = httpURLConnection.getOutputStream();
-            /*
-            SEND DATA WITH POST METHOD
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
-            String data_String =URLEncoder.encode("docid", "UTF-8") + "=" + URLEncoder.encode(doc, "UTF-8") + "&" +
-                    URLEncoder.encode("image", "UTF-8") + "=" + URLEncoder.encode(pic, "UTF-8");
+            String data_String =URLEncoder.encode("idut", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
             bufferedWriter.write(data_String);
             bufferedWriter.flush();
-            bufferedWriter.close();*/
+            bufferedWriter.close();
             outputStream.close();
             InputStream inputStream = httpURLConnection.getInputStream();
             httpURLConnection.disconnect();
@@ -192,23 +194,22 @@ class SelectAllDoc extends AsyncTask<String, String, ArrayList<ArrayList<String>
     @Override
     protected ArrayList<ArrayList<String>> doInBackground(String... arg) {
         String result = null;
+        String idut = arg[0];
         ArrayList<ArrayList<String>> ris = new ArrayList<>();
         try {
             String urlPHP = DBmyDoc.srvStart + "/Get/SelAllDoc.php";
             URL url = new URL(urlPHP);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            //httpURLConnection.setRequestMethod("POST");
-            //httpURLConnection.setDoOutput(true);
-            //OutputStream outputStream = httpURLConnection.getOutputStream();
-            /*
-            SEND DATA WITH POST METHOD
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
-            String data_String =URLEncoder.encode("docid", "UTF-8") + "=" + URLEncoder.encode(doc, "UTF-8") + "&" +
-                    URLEncoder.encode("image", "UTF-8") + "=" + URLEncoder.encode(pic, "UTF-8");
+            String data_String =URLEncoder.encode("idut", "UTF-8") + "=" + URLEncoder.encode(idut, "UTF-8");
             bufferedWriter.write(data_String);
             bufferedWriter.flush();
-            bufferedWriter.close();*/
-            //outputStream.close();
+            bufferedWriter.close();
+            outputStream.close();
             InputStream inputStream = httpURLConnection.getInputStream();
             httpURLConnection.disconnect();
             try{
@@ -350,11 +351,12 @@ class SelectBitmapDocID extends AsyncTask<String, String, Bitmap> {
     @Override
     protected Bitmap doInBackground(String... arg) {
         String docID = arg[0];
+        String usrID = arg[1];
         String result = null;
         String res = null;
         Bitmap bm = null;
         try {
-            String urlPHP = DBmyDoc.srvStart + "/Get/SelFBitmapFromDocID.php";
+            String urlPHP = DBmyDoc.srvStart + "/Get/SelFirstBitMapFromDoc.php";
             URL url = new URL(urlPHP);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
@@ -362,13 +364,13 @@ class SelectBitmapDocID extends AsyncTask<String, String, Bitmap> {
             OutputStream outputStream = httpURLConnection.getOutputStream();
             //SEND DATA WITH POST METHOD
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
-            String data_String =URLEncoder.encode("docid", "UTF-8") + "=" + URLEncoder.encode(docID, "UTF-8");
+            String data_String =URLEncoder.encode("docid", "UTF-8") + "=" + URLEncoder.encode(docID, "UTF-8")+ "&" +
+                    URLEncoder.encode("idut", "UTF-8") + "=" + URLEncoder.encode(usrID, "UTF-8");
             bufferedWriter.write(data_String);
             bufferedWriter.flush();
             bufferedWriter.close();
             outputStream.close();
             InputStream inputStream = httpURLConnection.getInputStream();
-            //bm = BitmapFactory.decodeStream(inputStream);
 
 
             try{
